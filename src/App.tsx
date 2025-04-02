@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Categories from "./pages/Categories";
+import CategoryDetail from "./pages/CategoryDetail";
 import Budgets from "./pages/Budgets";
 import Accounts from "./pages/Accounts";
 import Import from "./pages/Import";
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/categories/:id" element={<CategoryDetail />} />
             <Route path="/budgets" element={<Budgets />} />
             <Route path="/accounts" element={<Accounts />} />
             <Route path="/import" element={<Import />} />

@@ -2,9 +2,10 @@
 import { Category } from "@/types/finance";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Edit2, Trash2 } from "lucide-react";
+import { Edit2, Trash2, BarChart2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 interface CategoryCardProps {
   category: Category;
@@ -19,6 +20,8 @@ const CategoryCard = ({
   onDelete,
   transactionCount 
 }: CategoryCardProps) => {
+  const navigate = useNavigate();
+  
   return (
     <Card className="flex items-center justify-between p-4">
       <div className="flex items-center space-x-3">
@@ -45,6 +48,16 @@ const CategoryCard = ({
         </div>
       </div>
       <div className="flex gap-1">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => navigate(`/categories/${category.id}`)}
+          disabled={transactionCount === 0}
+          title={transactionCount === 0 ? "No transactions for this category" : "View category details"}
+        >
+          <BarChart2 className="h-4 w-4 mr-1" />
+          Details
+        </Button>
         <Button
           variant="ghost"
           size="sm"
