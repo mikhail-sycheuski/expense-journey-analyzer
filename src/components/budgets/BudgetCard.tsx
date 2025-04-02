@@ -79,8 +79,7 @@ const BudgetCard = ({ budget, category, onEdit, onDelete }: BudgetCardProps) => 
         
         <Progress 
           value={percentage} 
-          className={cn("h-2 mb-3")}
-          indicatorClassName={status.progressColor}
+          className={cn("h-2 mb-3", status.progressColor)}
         />
         
         <div className="text-sm text-muted-foreground mt-2">
