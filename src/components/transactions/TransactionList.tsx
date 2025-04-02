@@ -44,9 +44,9 @@ const TransactionList = ({
     account: string;
     search: string;
   }>({
-    type: "",
-    category: "",
-    account: "",
+    type: "all",
+    category: "all",
+    account: "all",
     search: "",
   });
   
@@ -68,17 +68,17 @@ const TransactionList = ({
   // Apply filters to transactions
   const filteredTransactions = transactions.filter(transaction => {
     // Filter by type
-    if (filter.type && transaction.type !== filter.type) {
+    if (filter.type && filter.type !== "all" && transaction.type !== filter.type) {
       return false;
     }
     
     // Filter by category
-    if (filter.category && transaction.category !== filter.category) {
+    if (filter.category && filter.category !== "all" && transaction.category !== filter.category) {
       return false;
     }
     
     // Filter by account
-    if (filter.account && transaction.account !== filter.account) {
+    if (filter.account && filter.account !== "all" && transaction.account !== filter.account) {
       return false;
     }
     
@@ -110,7 +110,7 @@ const TransactionList = ({
           <Button
             variant="outline"
             size="icon"
-            onClick={() => setFilter({ type: "", category: "", account: "", search: "" })}
+            onClick={() => setFilter({ type: "all", category: "all", account: "all", search: "" })}
             className="shrink-0"
           >
             <Filter className="h-4 w-4" />
@@ -126,7 +126,7 @@ const TransactionList = ({
               <SelectValue placeholder="All Types" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Types</SelectItem>
+              <SelectItem value="all">All Types</SelectItem>
               <SelectItem value="income">Income</SelectItem>
               <SelectItem value="expense">Expense</SelectItem>
             </SelectContent>
@@ -140,7 +140,7 @@ const TransactionList = ({
               <SelectValue placeholder="All Categories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Categories</SelectItem>
+              <SelectItem value="all">All Categories</SelectItem>
               {categories.map(category => (
                 <SelectItem key={category.id} value={category.id}>
                   {category.name}
@@ -157,7 +157,7 @@ const TransactionList = ({
               <SelectValue placeholder="All Accounts" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Accounts</SelectItem>
+              <SelectItem value="all">All Accounts</SelectItem>
               {accounts.map(account => (
                 <SelectItem key={account.id} value={account.id}>
                   {account.name}
