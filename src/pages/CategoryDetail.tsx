@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -11,7 +10,6 @@ import useFinanceData from "@/hooks/useFinanceData";
 import TransactionList from "@/components/transactions/TransactionList";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import CategorySpendingChart from "@/components/categories/CategorySpendingChart";
-import { Transaction } from "@/types/finance";
 
 const CategoryDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,14 +23,12 @@ const CategoryDetail = () => {
     return getCategoryById(id);
   }, [id, getCategoryById]);
   
-  // Get date ranges
   const today = new Date();
   const thisMonthStart = startOfMonth(today);
   const thisMonthEnd = endOfMonth(today);
   const lastMonthStart = startOfMonth(subMonths(today, 1));
   const lastMonthEnd = endOfMonth(subMonths(today, 1));
   
-  // Get current date range based on selected period
   const getCurrentDateRange = () => {
     if (selectedPeriod === "thisMonth") {
       return { start: thisMonthStart, end: thisMonthEnd, label: "This Month" };
@@ -46,7 +42,6 @@ const CategoryDetail = () => {
     }
   };
   
-  // Get comparison date range
   const getComparisonDateRange = () => {
     if (compareWithPeriod === "lastMonth") {
       return { start: lastMonthStart, end: lastMonthEnd, label: "Last Month" };
@@ -63,7 +58,6 @@ const CategoryDetail = () => {
   const currentDateRange = getCurrentDateRange();
   const comparisonDateRange = getComparisonDateRange();
   
-  // Filter transactions by category and date range
   const categoryTransactions = useMemo(() => {
     if (!id) return [];
     return transactions.filter(transaction => 
@@ -75,7 +69,6 @@ const CategoryDetail = () => {
     );
   }, [id, transactions, currentDateRange]);
   
-  // Get comparison transactions for charts
   const comparisonTransactions = useMemo(() => {
     if (!id) return [];
     return transactions.filter(transaction => 
@@ -87,13 +80,9 @@ const CategoryDetail = () => {
     );
   }, [id, transactions, comparisonDateRange]);
   
-  // Calculate current period total
   const currentTotal = categoryTransactions.reduce((sum, t) => sum + t.amount, 0);
-  
-  // Calculate comparison period total
   const comparisonTotal = comparisonTransactions.reduce((sum, t) => sum + t.amount, 0);
   
-  // Calculate percentage change
   const percentageChange = comparisonTotal === 0 
     ? 100 
     : ((currentTotal - comparisonTotal) / comparisonTotal) * 100;
