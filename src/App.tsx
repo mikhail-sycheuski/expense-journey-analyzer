@@ -12,7 +12,7 @@ import Accounts from "./pages/Accounts";
 import Import from "./pages/Import";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 const queryClient = new QueryClient();
 
